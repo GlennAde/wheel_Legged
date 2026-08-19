@@ -3,14 +3,14 @@
 # Flamingo 训练启动脚本（为本机调优：15GB 内存 / 8GB 显存 RTX 4060 Laptop）
 #
 # 用法（在仓库根目录执行）：
-#   ./run_train.sh                                  # 默认 1024 envs, headless
-#   NUM_ENVS=512 ./run_train.sh                     # 更保守（首次跑推荐 512）
-#   HEADLESS=0 ./run_train.sh                       # 打开 Isaac Sim 窗口（可视化，见下方）
-#   ./run_train.sh --max_iterations 10              # 追加其它参数
-#   ./run_train.sh --task Isaac-Velocity-Flat-Flamingo-v1-srmppo
+#   ./scripts/run_train.sh                          # 默认 1024 envs, headless
+#   NUM_ENVS=512 ./scripts/run_train.sh             # 更保守（首次跑推荐 512）
+#   HEADLESS=0 ./scripts/run_train.sh               # 打开 Isaac Sim 窗口（可视化，见下方）
+#   ./scripts/run_train.sh --max_iterations 10      # 追加其它参数
+#   ./scripts/run_train.sh --task Isaac-Velocity-Flat-Flamingo-v1-srmppo
 #
 # 可视化（想看到机器人）：
-#   HEADLESS=0 NUM_ENVS=64 ./run_train.sh --max_iterations 20
+#   HEADLESS=0 NUM_ENVS=64 ./scripts/run_train.sh --max_iterations 20
 #   -> 会弹出 Isaac Sim 窗口显示机器人（带 RL 面板）。注意：
 #      - 首次渲染要编译 shader，窗口可能过 1~3 分钟才出画面，属正常；
 #      - GUI 模式更吃内存，envs 别开太大（64~256 即可）；
@@ -18,19 +18,19 @@
 #
 # 说明：
 #   * 默认 --headless，训练时不需要打开 Isaac Sim 窗口，省内存省显存。
-#   * 默认 num_envs=1024（仓库默认 4096 在本机内存/显存下会爆，见 部署与卡死排查.md）。
+#   * 默认 num_envs=1024（仓库默认 4096 在本机内存/显存下会爆，见 docs/部署与卡死排查.md）。
 #   * 必须设置 PYTHONPATH=<仓库根>，否则 train.py 的 `from scripts.co_rl...` 会 ImportError。
 #   * 输出同时写入 logs/train_<时间戳>.log，可用 tail -f 观察进度，避免误以为卡死。
 # =============================================================================
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")" && pwd)"
 VENV_PY="${VENV_PY:-$(dirname "$REPO_DIR")/env_isaaclab/bin/python}"
 
 if [ ! -x "$VENV_PY" ]; then
     echo "[ERROR] 找不到 venv Python: $VENV_PY"
     echo "        请设置 VENV_PY 指向你的 env_isaaclab/bin/python，例如："
-    echo "        VENV_PY=/path/to/env_isaaclab/bin/python ./run_train.sh"
+    echo "        VENV_PY=/path/to/env_isaaclab/bin/python ./scripts/run_train.sh"
     exit 1
 fi
 

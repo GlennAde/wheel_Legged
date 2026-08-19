@@ -3,9 +3,9 @@
 # 一键重建 Flamingo 训练环境（新人 / 新机器用）
 #
 # 用法：
-#   ./setup_env.sh                 # 在仓库根目录执行
-#   ENV_DIR=/path/to/env ./setup_env.sh   # 自定义 venv 位置（默认仓库上级的 env_isaaclab）
-#   FRESH=1 ./setup_env.sh         # 目标 venv 已存在时：备份旧环境后全新重建（修复环境用）
+#   ./scripts/setup_env.sh                 # 在仓库根目录执行
+#   ENV_DIR=/path/to/env ./scripts/setup_env.sh   # 自定义 venv 位置（默认仓库上级的 env_isaaclab）
+#   FRESH=1 ./scripts/setup_env.sh         # 目标 venv 已存在时：备份旧环境后全新重建（修复环境用）
 #
 # 会做 5 件事：
 #   1. 创建 Python 3.10 虚拟环境（优先 uv，退而用 python3.10 -m venv）
@@ -26,7 +26,7 @@
 # =============================================================================
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")" && pwd)"
 ENV_DIR="${ENV_DIR:-$(dirname "$REPO_DIR")/env_isaaclab}"
 ISAACLAB_GIT="git+https://github.com/isaac-sim/IsaacLab.git@3c6e67bb5c7ada942a6d1884ab69338f57596f77"
 
@@ -41,7 +41,7 @@ if [ -d "$ENV_DIR" ] && [ -n "$(ls -A "$ENV_DIR" 2>/dev/null)" ]; then
         mv "$ENV_DIR" "$BAK"
     else
         echo "[WARN] 检测到已有环境 $ENV_DIR，将【复用】（不会清理旧包）。"
-        echo "       若环境损坏想全新重建，请用：FRESH=1 ./setup_env.sh（旧环境自动备份为 *_bak_*）"
+        echo "       若环境损坏想全新重建，请用：FRESH=1 ./scripts/setup_env.sh（旧环境自动备份为 *_bak_*）"
     fi
 fi
 
@@ -94,7 +94,7 @@ echo ""
 echo "============================================================"
 echo "环境就绪！启动方式："
 echo "  cd $REPO_DIR"
-echo "  ./run_train.sh          # 训练（headless）"
-echo "  HEADLESS=0 ./run_train.sh --max_iterations 30   # 开窗口看"
+echo "  ./scripts/run_train.sh          # 训练（headless）"
+echo "  HEADLESS=0 ./scripts/run_train.sh --max_iterations 30   # 开窗口看"
 echo "  资产注意：确认 lab/flamingo/assets/data/... 下的 USD 已解压"
 echo "============================================================"

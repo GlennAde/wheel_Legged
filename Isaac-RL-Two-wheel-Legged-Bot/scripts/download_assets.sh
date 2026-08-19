@@ -2,14 +2,14 @@
 # =============================================================================
 # 下载 Flamingo 机器人 USD 资产（上游 jaykorea 仓库，git-lfs）
 #
-# 用法：./download_assets.sh   （在仓库根目录执行）
+# 用法：./scripts/download_assets.sh   （在仓库根目录执行）
 #
 # 说明：机器人资产（*.usd）体积大且是开源发布，不随本项目仓库提交，
 #       新人 clone 后先跑本脚本获取资产，再跑 setup_env.sh。
 # =============================================================================
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")" && pwd)"
 UPSTREAM="https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot.git"
 DEST="$REPO_DIR/lab/flamingo/assets/data"
 
@@ -52,5 +52,5 @@ echo "============================================================"
 echo "资产就绪！检查示例（应存在）："
 ls -la "$DEST/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.usd" 2>/dev/null \
     || echo "  ⚠️ 未找到 flamingo_rev01_5_2 usd，请检查上游资产结构"
-echo "下一步：./setup_env.sh"
+echo "下一步：./scripts/setup_env.sh"
 echo "============================================================"

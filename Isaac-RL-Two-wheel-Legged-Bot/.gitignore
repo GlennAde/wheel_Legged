@@ -20,14 +20,14 @@ venv/
 *.venv/
 .uv/
 
-# ---- 机器人资产（开源可重新下载，不移植；用 download_assets.sh 获取）----
+# ---- 机器人资产（开源可重新下载，不移植；用 scripts/download_assets.sh 获取）----
 lab/flamingo/assets/data/
 *.zip
 
-# ---- IsaacLab 是独立上游项目（环境依赖），禁止提交，用 setup_env.sh 自动重建 ----
+# ---- IsaacLab 是独立上游项目（环境依赖），禁止提交，用 scripts/setup_env.sh 自动重建 ----
 IsaacLab/
 IsaacLab*
 
 # ---- 环境定义要提交（勿忽略）----
 # requirements.txt
-# setup_env.sh
+# scripts/setup_env.sh

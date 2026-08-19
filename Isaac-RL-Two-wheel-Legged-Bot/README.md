@@ -9,13 +9,13 @@
 
 | 目录 | 是什么 | 是否提交 / 如何获取 |
 |---|---|---|
-| `env_isaaclab/` | Python 虚拟环境（Isaac Sim 4.5 + torch 2.7.0+cu128，约 20GB） | ❌ 不提交；`./setup_env.sh` 一键重建 |
-| `IsaacLab/` | Isaac Lab 2.3 源码（editable 安装 5 子包，固定 commit） | ❌ 不提交；`setup_env.sh` 自动从 git 安装 |
+| `env_isaaclab/` | Python 虚拟环境（Isaac Sim 4.5 + torch 2.7.0+cu128，约 20GB） | ❌ 不提交；`./scripts/setup_env.sh` 一键重建 |
+| `IsaacLab/` | Isaac Lab 2.3 源码（editable 安装 5 子包，固定 commit） | ❌ 不提交；`scripts/setup_env.sh` 自动从 git 安装 |
 | **本仓库** | lab.flamingo 任务包 + 训练/部署脚本 + 文档 | ✅ 就是本仓库 |
-| `lab/flamingo/assets/data/` | 机器人 USD 资产（开源发布） | ❌ 不提交；`./download_assets.sh` 从上游获取 |
+| `lab/flamingo/assets/data/` | 机器人 USD 资产（开源发布） | ❌ 不提交；`./scripts/download_assets.sh` 从上游获取 |
 
 ```
-env_isaaclab (venv) ──editable──▶ IsaacLab ──editable──▶ 本仓库(lab.flamingo) ──▶ run_train.sh
+env_isaaclab (venv) ──editable──▶ IsaacLab ──editable──▶ 本仓库(lab.flamingo) ──▶ scripts/run_train.sh
 ```
 
 ## 🚀 快速上手（新机器 3 条命令）
@@ -24,13 +24,13 @@ env_isaaclab (venv) ──editable──▶ IsaacLab ──editable──▶ 本
 git clone <本仓库>
 cd Isaac-RL-Two-wheel-Legged-Bot
 
-./download_assets.sh   # ① 机器人 USD 资产（git-lfs + 解压 zip，开源）
-./setup_env.sh         # ② 一键创建环境（~20GB：torch cu128 + Isaac Sim 4.5 + IsaacLab）
-./run_train.sh         # ③ 开始训练（默认 1024 envs, headless）
+./scripts/download_assets.sh   # ① 机器人 USD 资产（git-lfs + 解压 zip，开源）
+./scripts/setup_env.sh         # ② 一键创建环境（~20GB：torch cu128 + Isaac Sim 4.5 + IsaacLab）
+./scripts/run_train.sh         # ③ 开始训练（默认 1024 envs, headless）
 ```
 
-- 详细流程：`新人工作流指南.md` ｜ 排障：`部署与卡死排查.md` ｜ 技术栈：`技术栈.md`
-- 环境损坏重建：`FRESH=1 ./setup_env.sh`（旧环境自动备份）
+- 详细流程：`docs/新人工作流指南.md` ｜ 排障：`docs/部署与卡死排查.md` ｜ 技术栈：`docs/技术栈.md`
+- 环境损坏重建：`FRESH=1 ./scripts/setup_env.sh`（旧环境自动备份）
 - ⚠️ 不要对现有 venv 执行 `uv pip sync -r requirements.txt`（会拆坏环境，详见排障文档）
 
 ---

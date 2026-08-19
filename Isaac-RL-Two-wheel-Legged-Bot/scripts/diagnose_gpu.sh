@@ -3,7 +3,7 @@
 # GPU / 环境自检脚本 —— 请在【你自己的终端】里运行（不要在 DSH 沙箱里跑）
 #
 #   cd /home/glennade/wheel_legged/Isaac-RL-Two-wheel-Legged-Bot
-#   ./diagnose_gpu.sh
+#   ./scripts/diagnose_gpu.sh
 #
 # 它会检查：显卡驱动、/dev/nvidia* 设备节点、PyTorch 能否用 CUDA、
 # 内存/交换分区/磁盘空间。每一项给出 PASS / FAIL，FAIL 项就是卡死的最大嫌疑。
@@ -15,7 +15,7 @@ pass() { echo -e "${GREEN}[PASS]${NC} $1"; }
 fail() { echo -e "${RED}[FAIL]${NC} $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")" && pwd)"
 VENV_PY="${VENV_PY:-$(dirname "$REPO_DIR")/env_isaaclab/bin/python}"
 
 echo "==================== 1. NVIDIA 驱动 ===================="
@@ -72,5 +72,5 @@ echo "核心数: $(nproc)"
 
 echo ""
 echo "==================== 结论 ===================="
-echo "如果第 1/2/3 项有任何 FAIL：先修 GPU（见 部署与卡死排查.md），Isaac Sim 必然起不来或卡死。"
+echo "如果第 1/2/3 项有任何 FAIL：先修 GPU（见 docs/部署与卡死排查.md），Isaac Sim 必然起不来或卡死。"
 echo "如果全部 PASS：问题在内存/参数，按文档把 num_envs 降到 512~1024 并用 --headless 启动。"
