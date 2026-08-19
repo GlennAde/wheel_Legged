@@ -1,0 +1,33 @@
+**/__pycache__/
+*.egg-info
+logs/
+*.pt
+*.onnx
+outputs/
+build/
+*.usd
+urdf/
+mjcf/
+*.thumbs
+.thumbs/
+*.asset_hash
+configuration/
+
+# ---- 虚拟环境：体积大（20GB+）且含本机绝对路径，禁止提交 ----
+env_isaaclab/
+.venv/
+venv/
+*.venv/
+.uv/
+
+# ---- 机器人资产（开源可重新下载，不移植；用 download_assets.sh 获取）----
+lab/flamingo/assets/data/
+*.zip
+
+# ---- IsaacLab 是独立上游项目（环境依赖），禁止提交，用 setup_env.sh 自动重建 ----
+IsaacLab/
+IsaacLab*
+
+# ---- 环境定义要提交（勿忽略）----
+# requirements.txt
+# setup_env.sh
